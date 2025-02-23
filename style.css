@@ -1,0 +1,526 @@
+@import url("https://fonts.googleapis.com/css2?family=Michroma&display=swap");
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+    font-family: "Area Normal", Helvetica, Arial, sans-serif;
+    height: 100vh;
+}
+
+.main-container {
+  background-color: #212121;
+  color: #fff;
+  /* height: 100%; */
+  width: 100%;
+}
+
+.header {
+  display: none;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  background: #212121;
+  color: #fff;
+  height: 4rem;
+  position: fixed;
+  width: 100%;
+  z-index: 10;
+  transition: transform 0.3s ease; /* Smooth transition */
+}
+
+.header-logo img {
+  width: 123px;
+}
+
+/* When scrolling down, hide the header */
+.scrolling-down .header {
+  transform: translateY(-100%);
+}
+
+.navigation-menu {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  justify-content: flex-end;
+  list-style: none;
+  margin: 0;
+  overflow: hidden;
+  padding: 0;
+  position: relative;
+  width: 100%;
+  gap: 20px;
+}
+
+.navigation-menu-item{
+  letter-spacing: 0.5px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5rem;
+  padding: 0 1rem;
+}
+
+.navigation-menu-item:last-child {
+  padding-right: 0;
+}
+
+.navigation-menu-item a {
+  text-decoration: none;
+  color: #fff;
+}
+
+.language-switch {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  font-weight: 400;
+  line-height: 1.5rem;
+  padding: 0;
+  position: relative;
+  text-transform: uppercase;
+}
+
+.underline {
+  background-color: #fff;
+  bottom: 0;
+  height: 2px;
+  right: 0;
+  position: absolute;
+  width: 40%;
+}
+
+.thumbnail-hero{
+  position: relative;
+  padding: 7rem 1rem;
+  /* min-height: 100vh; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.thumbnail-hero-image{
+  position: relative; /* Makes it the reference point */
+  width: 100%; /* Adjust as per your layout */
+}
+
+.thumbnail-hero-image .image-box {
+  transition: transform 0.3s ease-in-out; /* Smooth transition */
+}
+
+.thumbnail-hero-image .image-box:nth-child(1) {
+  transform: translate(-2rem, 4rem) !important; /* Moves 1st image right & down */
+}
+
+.thumbnail-hero-image .image-box:nth-child(2) {
+  transform: translate(2rem,-1rem) !important; /* Moves 2nd image left & up */
+}
+
+.thumbnail-hero-image .image-box:nth-child(3) {
+  transform: translate(30px, 4rem) !important; /* Moves 3rd image right & down */
+}
+
+.thumbnail-hero-image .image-box:nth-child(4) {
+  transform: translate(4rem, -5rem) !important; /* Moves 4th image left & up */
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 7rem 17rem; /* Adjust spacing */
+  flex-wrap: wrap;
+}
+
+.image-box {
+  position: relative;
+  z-index: 2;
+  width: 310px;  
+  height: 200px;
+  overflow: visible;
+  perspective: 1000px; 
+  transform: rotateX(var(--rotateX, 0deg)) rotateY(var(--rotateY, 0deg));
+  transition: transform 0.2s ease-out;
+}
+
+.image-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;  
+  transition: opacity 0.3s ease-in-out, border 0.3s ease-in-out;
+}
+
+.image-box img:hover {
+  opacity: 1 !important; /* Keep the hovered image fully visible */
+  border: none !important; /* Remove border from hovered image */
+  z-index: 2;
+}
+
+.row:hover .image-box:not(:hover) {
+  background-color: transparent;           /* Show your background */
+  border: 1px solid #5C5959;             /* Add border */
+  position: relative;
+}
+
+/* Make the image inside those containers invisible */
+.row:hover .image-box:not(:hover) img {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.row:hover .image-box:not(:hover)::before,
+.row:hover .image-box:not(:hover)::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 119%;          /* Large enough to span diagonal of the box */
+  height: 0.5px;          /* Thickness of the line */
+  background: #5C5959;  /* Color of the cross lines */
+  transform: translate(-50%, -50%);
+  transform-origin: center;
+  pointer-events: none; /* Let clicks pass through */
+  z-index: 2;           /* Appear above the box background */
+}
+
+/* One diagonal at +45° */
+.row:hover .image-box:not(:hover)::before {
+  transform: translate(-50%, -50%) rotate(32.5deg);
+}
+
+/* The other diagonal at -45° */
+.row:hover .image-box:not(:hover)::after {
+  transform: translate(-50%, -50%) rotate(-32.5deg);
+}
+
+.thumbnail-text{
+  opacity: 0; /* Hide text by default */
+  transition: opacity 0.3s ease-in-out;
+  position: absolute;
+  bottom: -30%; 
+  left: 80%;
+  transform: translateX(-60%);
+  text-align: right;
+  color: white;
+  font-weight: bold;
+  white-space: nowrap; 
+}
+
+.image-box:hover .thumbnail-text {
+  opacity: 1;
+}
+
+.thumbnail-text h2{
+  font-size: 2.50rem;
+  text-transform: uppercase;
+  transform: scaleX(1.2);
+  font-weight: bolder;
+  margin-bottom: 0;
+}
+
+.thumbnail-text h2 span{
+  display: block;
+}
+
+.thumbnail-text p{
+  font-weight: normal;
+}
+
+.thumbnail-hero-title{
+  position: absolute; 
+  top: 50%; 
+  left: 50%;
+  color: #fff;
+  display: inline-block; 
+  transform: translate(-50%, -50%) scaleX(1.2)  !important;
+  z-index: 10;             
+  text-align: center;
+  font-size: clamp(2rem, 8vw, 10rem);  
+  line-height: 0.9;
+  font-weight: 900;
+  text-transform: uppercase;
+  margin: 0 2rem;  
+  transition: all 0.3s ease;
+  pointer-events: none;
+  opacity: 1 !important;
+}
+
+.line {
+  overflow: hidden; /* Keeps animation smooth */
+}
+
+.inner {
+  display: inline-block;
+  transform: translateY(100%);
+  opacity: 0; /* Ensure text is hidden initially */
+}
+
+.image-box:hover ~ .thumbnail-hero-title {
+  color: transparent;
+  -webkit-text-stroke: 1px #5C5959;
+  opacity: 0.1;
+  z-index: 1;
+}
+
+.ratio {
+  overflow: hidden;
+}
+
+.vision-section {
+  position: relative;
+  min-height: 100vh; /* Ensure the block fills full screen height */
+  display: flex;
+  align-items: center; /* Vertically center content */
+}
+
+/* Vertical "VISION" text on both sides */
+.vertical-text {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  letter-spacing: 0.3rem;
+  font-size: .8rem;
+  color: #fff;
+  opacity: 0; /* GSAP will fade this in */
+}
+
+.vertical-text.left {
+  left: 10px;
+}
+
+.vertical-text.right {
+  right: 10px;
+  /* Rotate 180° to flip text if needed */
+  transform: translateY(-50%) rotate(180deg);
+}
+
+.left-col{
+  padding: 0 3rem;
+}
+
+/* Left column paragraphs */
+.left-col p {
+  font-size: 14px;
+}
+
+/* "SEE MORE" link styling */
+.left-col a {
+  display: inline-block;
+  text-decoration: none;
+  color: #fff;
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.left-col a {
+  position: relative;
+  text-decoration: none;
+}
+
+.left-col a::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 0;
+  height: 1px;
+  background-color: #fff;
+  transition: width 0.3s ease-in-out;
+}
+
+.left-col a:hover::after {
+  width: 100%;
+  left: 0;
+  right: auto;
+}
+
+
+.left-col svg{
+  margin-right: 10px;
+}
+
+/* Right column heading */
+.big-heading {
+  font-size: 2rem;
+  text-transform: uppercase;
+  font-weight: 900;
+  line-height: 1.2;
+  opacity: 0; /* GSAP will fade this in */
+  position: relative; 
+  z-index: 2; /* Keep heading above background SVG */
+  transform: scale(1) !important;
+  margin-top: 1rem;
+}
+
+/* Background SVG behind the heading */
+.bg-svg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 320px;   /* Adjust size as desired */
+  height: auto;
+  opacity: 0.06;  /* Very faint to sit behind text */
+  fill: none;
+  stroke: #fff;
+  stroke-width: 2;
+  pointer-events: none; /* Don’t interfere with mouse */
+  /* GSAP will fade this in too, if you like */
+  opacity: 0; /* Start hidden; we’ll fade it in with GSAP */
+}
+
+/* Larger heading on bigger screens */
+@media (min-width: 768px) {
+  .big-heading {
+    font-size: 2.5rem;
+  }
+}
+
+.rich-text-component {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  font-size: 1.2rem;
+  transition: color 0.3s ease;
+}
+
+.link-icon path {
+  transition: fill 0.3s ease;
+}
+
+.svg-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.svg-container svg{
+  margin-left: 10rem;
+  transform: scale(1.4);
+}
+
+/* Make the section full viewport height so vertical text is clearly centered */
+.skills-domain {
+  position: relative;
+  min-height: 100vh; /* Full viewport height */
+  padding: 60px 0;
+}
+
+/* Vertical “SKILLS DOMAIN” on the left (bottom-to-top) */
+.sub-left {
+  position: absolute;
+  top: 50%;
+  left: 1rem;
+  transform: translateY(-50%) rotate(-90deg); /* rotate 90° CCW => bottom-to-top */
+  transform-origin: center left; /* pivot around the left side */
+  text-transform: uppercase;
+  letter-spacing: .3rem;
+  font-size: 0.8rem;
+}
+
+/* Vertical “SKILLS DOMAIN” on the right (top-to-bottom) */
+.sub-right {
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  transform: translateY(-50%) rotate(90deg); /* rotate 90° CW => top-to-bottom */
+  transform-origin: center right; /* pivot around the right side */
+  text-transform: uppercase;
+  letter-spacing: .3rem;
+  font-size: 0.8rem;
+}
+
+/* Column content */
+.text-columns-title {
+  font-size: 2rem;
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+  font-size: 2.5rem;
+  text-transform: uppercase;
+  font-weight: 900;
+  z-index: 2;
+  transform: scale(1) !important;
+  margin-top: 1rem;
+}
+
+p {
+  margin-bottom: 1rem;
+}
+
+/* Optional styling for the SVG/illustration */
+.parallax {
+  margin-bottom: 1.5rem;
+}
+
+.parallax svg {
+  margin-left: 10rem;
+  transform: scale(1.2);
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* “See More” link with right-to-left underline */
+.see-more-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  color: #fff;
+  text-decoration: none;
+  margin-top: 1rem;
+}
+
+.see-more-link .link-icon {
+  margin-right: 0.5rem;
+}
+
+.see-more-link::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background-color: #fff;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s ease-in-out;
+}
+
+.see-more-link:hover::after {
+  transform: scaleX(1);
+}
+
+.loading-page {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #212121;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+
+#svg {
+  width: 50%;
+  height: auto;
+}
+
+#svg text {
+  display: inline-block; 
+  transform: scaleX(1.2);
+  font-weight:800;
+}
+
